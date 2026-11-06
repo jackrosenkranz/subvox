@@ -10,6 +10,8 @@ class HeadsetsTest {
     fun windowsEndpointNamesResolveToTheRightShokzModel() {
         assertEquals(Headsets.shokzOpenRun, Headsets.match("Headset (OpenRun Hands-Free AG Audio)"))
         assertEquals(Headsets.shokzOpenRunPro2, Headsets.match("Headset (OpenRun Pro 2 Hands-Free AG Audio)"))
+        // Exact label the Android app showed on a phone paired with an OpenRun Pro 2.
+        assertEquals(Headsets.shokzOpenRunPro2, Headsets.match("OpenRun Pro 2 by Shokz (Bluetooth headset mic)"))
         assertEquals(Headsets.shokzOpenComm2, Headsets.match("Headset (OpenComm2 UC by Shokz Hands-Free AG Audio)"))
         assertEquals(Headsets.shokzOpenComm2, Headsets.match("Microphone (Shokz Loop110)"))
         assertEquals(Headsets.airPodsPro, Headsets.match("Headset (Jack's AirPods Pro Hands-Free AG Audio)"))
