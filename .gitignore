@@ -3,3 +3,11 @@ build/
 DerivedData/
 .DS_Store
 xcuserdata/
+
+# Gradle / JVM / Android
+.gradle/
+**/build/
+local.properties
+*.iml
+.idea/
+.kotlin/
