@@ -1,4 +1,4 @@
-name: JVM (core + desktop)
+name: Build
 
 on:
   push:
@@ -6,11 +6,15 @@ on:
   pull_request:
 
 jobs:
-  test:
+  jvm:
+    name: core + desktop (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
+    env:
+      SUBVOX_ANDROID: "off"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -20,3 +24,17 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew :core:test :desktop:test :desktop:installDist --no-daemon
       - run: ./gradlew :desktop:run --args="--help" --no-daemon
+
+  android:
+    name: android (assembleDebug)
+    runs-on: ubuntu-latest
+    env:
+      SUBVOX_ANDROID: "on"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew :android:assembleDebug --no-daemon

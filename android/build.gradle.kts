@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+// AGP comes from the root build script's classpath (see the root build.gradle.kts), so no
+// version here; the Kotlin plugins take their version from settings.gradle.kts.
 plugins {
     id("com.android.application")
     kotlin("android")

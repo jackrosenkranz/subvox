@@ -27,12 +27,19 @@ rootProject.name = "subvox"
 
 include(":core", ":desktop")
 
-// The Android module needs the Android Gradle Plugin and an SDK. It is only wired in when an
-// SDK location is known, so `gradlew :desktop:run` and `gradlew :core:test` work on a machine
-// (or CI box) without Android Studio.
+// The Android module needs the Android Gradle Plugin and an SDK. SUBVOX_ANDROID=on or off
+// decides; unset, it is included when an SDK location is known. So `gradlew :desktop:run` and
+// `gradlew :core:test` work on a machine without Android Studio, and CI can pin either way.
+val androidSwitch = System.getenv("SUBVOX_ANDROID")?.lowercase()
 val hasAndroidSdk = System.getenv("ANDROID_HOME") != null ||
     System.getenv("ANDROID_SDK_ROOT") != null ||
     file("local.properties").let { it.exists() && it.readText().contains("sdk.dir") }
-if (hasAndroidSdk) {
+val includeAndroid = when (androidSwitch) {
+    "on", "true", "1" -> true
+    "off", "false", "0" -> false
+    else -> hasAndroidSdk
+}
+gradle.extra["subvoxAndroid"] = includeAndroid
+if (includeAndroid) {
     include(":android")
 }

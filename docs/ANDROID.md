@@ -45,9 +45,11 @@ segment on Decode, or mark an utterance while recording.
 
 ## Build
 
-Needs Android Studio or the command-line SDK with API 35. The module is only included when an
+Needs Android Studio or the command-line SDK with API 35. The module is included when
+`SUBVOX_ANDROID=on`, excluded when `SUBVOX_ANDROID=off`, and otherwise included only when an
 SDK location is known (`ANDROID_HOME`, `ANDROID_SDK_ROOT`, or `local.properties` with
-`sdk.dir`), so desktop-only machines build without it.
+`sdk.dir`), so desktop-only machines build without it. CI builds it with `assembleDebug` on
+every pull request.
 
 ```sh
 ./gradlew :android:assembleDebug
