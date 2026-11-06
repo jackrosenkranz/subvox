@@ -38,3 +38,8 @@ jobs:
           java-version: "21"
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew :android:assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: subvox-debug-apk
+          path: android/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
